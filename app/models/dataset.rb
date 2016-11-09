@@ -19,6 +19,8 @@ class Dataset < ActiveRecord::Base
   validates_uniqueness_of :title
   validates :distributions, presence: true
 
+  validate :validate_temporal
+
   with_options on: :inventory do |dataset|
     dataset.validates :title, :contact_position, :public_access, :publish_date, presence: true
   end
@@ -70,4 +72,21 @@ class Dataset < ActiveRecord::Base
     def gov_type
       catalog.organization.gov_type
     end
+
+  def validate_temporal
+      arrayDates = temporal.split('/')
+      puts ("<<<<<<<<< Temporal >>>>>>>>>>>>>>>>>>>"   +  temporal)
+      puts ("<<<<<<<<< la fecha inicial >>>>>>>>>>>" + arrayDates[0])
+      puts ("<<<<<<<<< la fecha final >>>>>>>>>>>>>>>>>>>"   + arrayDates[1])
+
+     if(  arrayDates     != nil &&  
+           arrayDates[0] != nil && arrayDates[1] != nil  && 
+           arrayDates[0] >= arrayDates[1] )
+           puts("Periodo inicial " + arrayDates[0] +  " es mayor a periodo final " + arrayDates[1])         
+           #la siguiente linea proboca el error en la pantalla Documenta tus Conjuntos y Recursos de Datos Abiertos no muestra el registro
+           errors.add(:temporal, ' La fecha inicial es mayor que la fecha final ')            
+      end
+
+  end
+
 end
