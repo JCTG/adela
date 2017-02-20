@@ -27,7 +27,7 @@ describe Dataset do
     end
 
     it 'should not be valid without a title' do
-      dataset.title = "Mi titulo "
+      dataset.title = "Mi titulooooosss "
       expect(dataset).not_to be_valid(:inventory)
 
     end
