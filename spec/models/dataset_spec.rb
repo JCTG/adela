@@ -25,9 +25,9 @@ describe Dataset do
     it 'should be valid with all the mandatory fields' do
       expect(dataset).to be_valid(:inventory)
     end
-
+    #Esta prueba se modifico para probar job de adela cuando mandan las pruebas
     it 'should not be valid without a title' do
-      dataset.title = "Mi titulooooo "
+      dataset.title = "Mi titulo JCTG"
       expect(dataset).not_to be_valid(:inventory)
 
     end
