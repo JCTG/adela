@@ -27,7 +27,7 @@ describe Dataset do
     end
     #Esta prueba se modifico para probar job de adela cuando mandan las pruebas
     it 'should not be valid without a title' do
-      dataset.title = "Mi titulo JCTG"
+      dataset.title = nil
       expect(dataset).not_to be_valid(:inventory)
 
     end
