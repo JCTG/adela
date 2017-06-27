@@ -1,0 +1,109 @@
+>>>>>>>>> Receta Adela>>>>>>>
+
+  Crear adela-postgres, adela-redis
+    docker run --name adela-postgres -p 5432:5432 -e POSTGRES_USER=adela -e POSTGRES_PASSWORD=adela -d postgres
+    docker run --name adela-redis -p 6379:6379 -d redis
+    docker exec -it adela-postgres su - posgres
+    createdb adela_development
+Al ingresar a la carpeta del proyecto
+    rvm install install ruby-2.3.0
+    gem install bundler
+    bundle install (instala las librerias del proyecto)
+
+Obtener la  IP del host de adela-postgres de la sig manera:
+
+sudo docker inspect adela-postgres
+
+"IPAddress": "172.17.0.2",
+
+Este valor se pone en host del la configuración de la base de datos en database.yaml  
+
+**********************
+default: &default
+  adapter: postgresql
+  encoding: utf8
+  timeout: 5000
+  pool: <%= ENV["DB_POOL"] || ENV['MAX_THREADS'] || 5 %>
+
+development:
+  <<: *default
+  database: adela_development
+  username: adela
+  password: adela
+  host: 172.17.0.2
+
+test:
+  <<: *default
+  database: adela_test
+
+production:
+  <<: *default
+  database: adela_production
+  username: postgres
+  host: postgres
+  password: <%= ENV['POSTGRES_ENV_POSTGRES_PASSWORD'] %>
+********
+
+Generar Base de Datos
+    bundle exec rake db:setup
+Generar usuario
+    rake db:seed
+Al ingresar al portal
+    user1@example.com
+    secretpassword
+Para crear un usuario que sea ADMNISTRADOR   dentro de find va el ID del usuario
+  user = User.find(1)
+  user.add_role(:admin)
+
+
+##Pasos para solución de error
+
+ligas de apoyo de instalación
+
+
+Al momento de installar  
+
+bundle install mandar error de libpq, se soluciono con el siguiente link:
+
+https://www.howtoinstall.co/en/ubuntu/trusty/libpq-dev
+
+http://www.rubydoc.info/gems/pg/0.18.2
+
+comenta que se haga lo siguiente:
+
+sudo apt-get update
+sudo apt-get install libpq-dev
+
+nuevamente se ejecuta  dentro de la carpeta de proyecto adela:
+bundle install
+
+
+bibliografia 
+
+https://rvm.io/rvm/install
+
+https://stackoverflow.com/questions/7696633/how-to-set-default-ruby-version-with-rvm
+
+https://rvm.io/workflow/examples
+
+
+https://rvm.io/rubies/default
+
+https://tecadmin.net/install-ruby-2-3-centos-with-rvm/
+
+https://github.com/rvm/rvm/issues/4068
+
+After install
+
+https://stackoverflow.com/questions/6038364/ruby-rvm-install-error-could-not-source
+
+https://www.rosehosting.com/blog/install-ruby-on-rails-on-ubuntu-16-04/
+
+https://www.digitalocean.com/community/tutorials/how-to-install-ruby-on-rails-with-rvm-on-ubuntu-16-04
+
+
+
+
+
+
+
