@@ -7,6 +7,9 @@ default: &default
 development:
   <<: *default
   database: adela_development
+  username: adela
+  password: adela
+  host: 172.17.0.2
 
 test:
   <<: *default
