@@ -18,18 +18,10 @@ describe Dataset do
       expect(new_dataset).not_to be_valid
     end
 
-    xit 'should not be valid with higher initial perido that end periodo' do
-      dataset.temporal = '2016-11-25/2015-11-01'
-      expect(dataset).not_to be_valid
-    end
+    it 'should not be valid with higher initial perido that end periodo' do
+      dataset.temporal_init_date = '2016-11-25'
+      dataset.temporal_term_date = '2015-11-01'
 
-    it 'should not be valid without initial period' do
-      dataset.temporal = '/2015-11-01'
-      expect(dataset).not_to be_valid
-    end
-
-    it 'should not be valid without end period' do
-      dataset.temporal = '2015-11-01/'
       expect(dataset).not_to be_valid
     end
   end
@@ -123,7 +115,8 @@ describe Dataset do
     end
 
     it 'should not be valid without the temporal field' do
-      dataset.temporal = nil
+      allow(dataset).to receive(:temporal) { nil }
+
       expect(dataset).not_to be_valid(:ckan)
     end
 

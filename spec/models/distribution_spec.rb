@@ -66,7 +66,8 @@ describe Distribution do
     end
 
     it 'should not be valid without a temporal' do
-      distribution.temporal = nil
+      allow(distribution).to receive(:temporal) { nil }
+
       expect(distribution).not_to be_valid(:ckan)
     end
   end
