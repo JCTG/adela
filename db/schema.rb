@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170620205126) do
+ActiveRecord::Schema.define(version: 20170712053003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,6 +113,8 @@ ActiveRecord::Schema.define(version: 20170620205126) do
     t.text     "comments"
     t.string   "state"
     t.string   "quality"
+    t.datetime "temporal_init_date"
+    t.datetime "temporal_term_date"
   end
 
   add_index "datasets", ["catalog_id"], name: "index_datasets_on_catalog_id", using: :btree
@@ -146,6 +148,8 @@ ActiveRecord::Schema.define(version: 20170620205126) do
     t.text     "codelist"
     t.string   "codelist_link"
     t.string   "copyright"
+    t.datetime "temporal_init_date"
+    t.datetime "temporal_term_date"
   end
 
   add_index "distributions", ["dataset_id"], name: "index_distributions_on_dataset_id", using: :btree
