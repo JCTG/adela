@@ -19,8 +19,6 @@ class Dataset < ActiveRecord::Base
   validates_uniqueness_of :title
   validates :distributions, presence: true
 
-  validate :validate_initial_period, :validate_end_period, unless: 'temporal.nil? || temporal.index("/").nil?'
-
   with_options on: :inventory do |dataset|
     dataset.validates :title, :contact_position, :public_access, :publish_date, presence: true
   end
@@ -70,13 +68,5 @@ class Dataset < ActiveRecord::Base
 
     def gov_type
       catalog.organization.gov_type
-    end
-
-    def validate_initial_period
-      errors.add(:temporal, 'No puede estar en blanco inicio del período de tiempo cubierto.') if temporal.index('/').zero?
-    end
-
-    def validate_end_period
-      errors.add(:temporal, 'No puede estar en blanco fin del período de tiempo cubierto.') if temporal[-1] == '/'
     end
 end
