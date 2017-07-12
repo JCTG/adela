@@ -1,6 +1,7 @@
 class Distribution < ActiveRecord::Base
   include Versionable
   include Publishable
+  include DCATCommons
 
   belongs_to :dataset
   audited associated_with: :dataset

@@ -1,6 +1,7 @@
 class Dataset < ActiveRecord::Base
   include Versionable
   include Publishable
+  include DCATCommons
 
   belongs_to :catalog
 

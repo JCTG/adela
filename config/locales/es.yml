@@ -92,12 +92,16 @@ es:
               taken: 'Ya existe un conjunto con el mismo nombre, es posible que otra Institución lo tenga registrado y es necesario usar otro.'
             distributions:
               blank: 'Un conjunto de datos debe de contener al menos un Recurso de Datos.'
+            temporal:
+              invalid: 'La fecha del inicio del período de tiempo cubierto debe ser menor al fin del periodo.'
         distribution:
           attributes:
             title:
               taken: 'Ya existe un recurso con el mismo nombre, es posible que otra Institución lo tenga registrado y es necesario usar otro.'
             download_url:
               taken: 'Existe otro recurso con la misma URL de descarga.'
+            temporal:
+              invalid: 'La fecha del inicio del período de tiempo cubierto debe ser menor al fin del periodo.'
         organization:
           attributes:
             title:
