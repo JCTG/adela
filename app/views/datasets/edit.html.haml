@@ -34,15 +34,14 @@
             = f.label :mbox, 'Correo del responsable', class: 'control-label'
             = f.email_field :mbox, class: 'form-control', 'data-toggle': 'tooltip', title: "#{t('tooltip.dataset.email_field')}", required: true
       .row
-        = f.hidden_field(:temporal)
         .col-xs-6
           .form-group.required
-            = f.label :temporal, 'Inicio del período de tiempo cubierto', class: 'control-label'
-            %input.dcat-temporal.datepicker.form-control.dpDate#init-date{type: "text", placeholder: "Inicio", required: true, 'data-toggle': 'tooltip', 'data-container': 'body', title: "#{t('tooltip.dataset.temporal.init')}", 'data-placement': 'right'}
+            = f.label :temporal_init_date, 'Inicio del período de tiempo cubierto', class: 'control-label'
+            = f.text_field :temporal_init_date, 'data-placement': 'right', 'data-container':'body', value: f.object.temporal_init_date&.strftime('%F'), required: true, class: 'datepicker form-control dpDate', 'data-toggle': 'tooltip', title: "#{t('tooltip.dataset.temporal.init')}"
         .col-xs-6
           .form-group.required
-            = f.label :temporal, 'Fin del período de tiempo cubierto', class: 'control-label'
-            %input.dcat-temporal.datepicker.form-control.dpDate#term-date{type: "text", placeholder: "Fin", required: true, 'data-toggle': 'tooltip', 'data-container': 'body', title: "#{t('tooltip.dataset.temporal.term')}", 'data-placement': 'right'}
+            = f.label :temporal_term_date, 'Fin del período de tiempo cubierto', class: 'control-label'
+            = f.text_field :temporal_term_date, 'data-placement': 'right', 'data-container':'body', value: f.object.temporal_term_date&.strftime('%F'), required: true, class: 'datepicker form-control dpDate', 'data-toggle': 'tooltip', title: "#{t('tooltip.dataset.temporal.term')}"
       .row
         .col-xs-6
           .form-group.required
@@ -111,28 +110,6 @@
     %br
 
 :javascript
-  function onDistributionTemporalChange() {
-    var initDate, termDate, dcatTemporal;
-
-    initDate = $('#init-date').val();
-    termDate = $('#term-date').val();
-
-    dcatTemporal = initDate + "/" + termDate;
-    $('#dataset_temporal').val(dcatTemporal);
-  }
-
   $(function() {
-    (function () {
-      var initDate, termDate, dcatTemporal;
-
-      dcatTemporal = $('#dataset_temporal').val().split('/');
-      initDate = dcatTemporal[0];
-      termDate = dcatTemporal[1];
-
-      $('#init-date').val(initDate);
-      $('#term-date').val(termDate);
-    })();
-
-    $('.dcat-temporal').change(onDistributionTemporalChange);
     $('tr:contains("Listo para publicar")').addClass('success');
   });

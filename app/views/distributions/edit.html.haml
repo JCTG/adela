@@ -29,15 +29,14 @@
       .form-group.proprietary-format.hidden
         = render '/shared/components/proprietary_format_alert'
       .row
-        = f.hidden_field(:temporal)
         .col-xs-6
           .form-group.required
-            = f.label :temporal, 'Inicio del período de tiempo cubierto', class: 'control-label'
-            %input.dcat-temporal.datepicker.form-control.dpDate#init-date{'data-placement':'right', 'data-container':'body', type: "text", placeholder: "Inicio", required: true, 'data-toggle': 'tooltip', title: "#{t('tooltip.distribution.temporal.init')}" }
+            = f.label :temporal_init_date, 'Inicio del período de tiempo cubierto', class: 'control-label'
+            = f.text_field :temporal_init_date, value: f.object.temporal_init_date&.strftime('%F'), 'data-placement':'right', 'data-container':'body', class: 'form-control input-icon datepicker dpDate', required: true, 'data-toggle': 'tooltip', title: "#{t('tooltip.distribution.temporal.init')}"
         .col-xs-6
           .form-group.required
-            = f.label :temporal, 'Fin del período de tiempo cubierto', class: 'control-label'
-            %input.dcat-temporal.datepicker.form-control.dpDate#term-date{ 'data-placement':'right', 'data-container':'body', type: "text", placeholder: "Fin", required: true, 'data-toggle': 'tooltip', title: "#{t('tooltip.distribution.temporal.term')}" }
+            = f.label :temporal_term_date, 'Fin del período de tiempo cubierto', class: 'control-label'
+            = f.text_field :temporal_term_date, value: f.object.temporal_term_date&.strftime('%F'), 'data-placement':'right', 'data-container':'body', class: 'form-control input-icon datepicker dpDate', required: true, 'data-toggle': 'tooltip', title: "#{t('tooltip.distribution.temporal.term')}"
       .row
         .col-xs-6
           .form-group.required
@@ -74,29 +73,5 @@
 
 :javascript
   $(function () {
-
-    function onDistributionTemporalChange() {
-      var initDate, termDate, dcatTemporal;
-
-      initDate = $('#init-date').val();
-      termDate = $('#term-date').val();
-
-      dcatTemporal = initDate + "/" + termDate;
-      $('#distribution_temporal').val(dcatTemporal);
-    }
-
-    function loadTemporalValues() {
-      var initDate, termDate, dcatTemporal;
-
-      dcatTemporal = $('#distribution_temporal').val().split('/');
-      initDate = dcatTemporal[0];
-      termDate = dcatTemporal[1];
-
-      $('#init-date').val(initDate);
-      $('#term-date').val(termDate);
-    }
-
     $.datepicker.setDefaults({ dateFormat: 'yy-mm-dd' });
-    loadTemporalValues();
-    $('.dcat-temporal').change(onDistributionTemporalChange);
   })
