@@ -31,17 +31,17 @@
               %td
                 %a= dataset.title
               %td
-                = l(dataset.publish_date, format: '%-d de %B de %Y')
+                = l(dataset.publish_date, format: '%-d de %B de %Y') if dataset.publish_date
               %td
-                = l(dataset.issued, format: '%-d de %B de %Y')
+                = l(dataset.issued, format: '%-d de %B de %Y') if dataset.issued
             - dataset.distributions.where('distributions.issued <= ?', @issued + 1.second).each do |distribution|
               %tr.distribution
                 %td
                 %td.nested= distribution.title
                 %td
-                  = l(distribution.publish_date, format: '%-d de %B de %Y')
+                  = l(distribution.publish_date, format: '%-d de %B de %Y') if distribution.publish_date
                 %td
-                  = l(distribution.issued, format: '%-d de %B de %Y')
+                  = l(distribution.issued, format: '%-d de %B de %Y') if distribution.issued
 .row
   .col-md-12
     %hr
