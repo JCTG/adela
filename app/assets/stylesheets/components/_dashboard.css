@@ -305,7 +305,7 @@ svg { overflow: visible !important; }
 }
 
 .overlay-dashboard{
-  position: absolute;
+  position: relative;
   right: 0;
   width: 100%;
 }

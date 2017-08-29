@@ -5,6 +5,8 @@
     %meta{charset: 'utf-8'}
     %meta{'http-equiv': 'X-UA-Compatible', content: 'IE=edge'}
     %meta{name: 'viewport', content: 'width=device-width, initial-scale=1'}
+    %link{rel:"import", href:"#{ENV['CDN_URL']}polymer/polymer.html"}
+    %link{rel:"import", href:"#{ENV['CDN_URL']}dgm-footer/dgm-footer.html"}
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all'
     = javascript_include_tag 'application'
@@ -15,9 +17,10 @@
   %body
     = render 'layouts/header'
     = render 'layouts/flash_messages', flash: flash
-    .container
+    .container.newclass
       = breadcrumbs style: :ol, class: 'breadcrumb'
       = yield
+    %dgm-footer
     :javascript
       var _sf_async_config = { uid: 62850, domain: ENV['HOST'], useCanonical: true };
       (function() {

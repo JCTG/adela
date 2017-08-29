@@ -82,4 +82,5 @@ Adela::Application.configure do
   config.active_record.dump_schema_after_migration = false
     config.gem 'redis'
   config.action_mailer.default_url_options = { :host => ENV['HOST'] }
+  ENV["CDN_URL"]       = 'http://cdn.datos.gob.mx/bower_components/'
 end
