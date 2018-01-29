@@ -55,6 +55,8 @@ gem 'inline_svg'
 gem 'polymer-rails'
 gem 'audited-activerecord'
 gem 'carrierwave-ftp', require: 'carrierwave/storage/ftp'
+#gema de auditorias de vulnerabilidad
+gem 'bundler-audit'
 
 group :development do
   gem 'bullet'
