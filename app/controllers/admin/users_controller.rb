@@ -41,6 +41,7 @@ module Admin
     def destroy
       user = User.find(params[:id])
       user.destroy
+      flash[:notice] = I18n.t('flash.notice.user.deleted')
       redirect_to admin_users_path
     end
 

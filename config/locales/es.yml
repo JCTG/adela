@@ -166,6 +166,7 @@ es:
         import: "Los usuarios se crearon exitosamente."
         update_role: "Se han actualizado los permisos del usuario."
         update_password: "Se ha actualizado la contraseña exitosamente."
+        deleted: "El usuario ha sido eliminado exitosamente"
       organization:
         create: "La organización se creó exitosamente."
         update: "Se ha actualizado la organización exitosamente."
