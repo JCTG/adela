@@ -97,3 +97,8 @@ end
 gem 'coveralls', require: false
 gem 'foreman', require: false
 gem 'rubocop', require: false
+
+#envio de correos en ambiente desarrollo
+group :development do
+  gem 'letter_opener_web'
+end

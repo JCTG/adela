@@ -7,14 +7,20 @@ default: &default
 development:
   <<: *default
   database: adela_development
+  username: adela
+  password: adela
+  host: 172.17.0.2
 
 test:
   <<: *default
-  database: adela_test
+  database: adela
+  username: adela
+  password: adela
+  host: localhost
 
 production:
   <<: *default
   database: adela_production
   username: postgres
-  host: postgres
-  password: <%= ENV['POSTGRES_ENV_POSTGRES_PASSWORD'] %>
+  host: localhost
+  password: <%= ENV['POSTGRES_ENV_POSTGRES_PASSWORD'] %
