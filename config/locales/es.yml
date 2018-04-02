@@ -172,7 +172,7 @@ es:
         update: "Se ha actualizado la organización exitosamente."
         documents:
           update: "Gracias por cargar tus oficios."
-          error: "Ocurrió un error al cargar tus oficios."
+          error: "El formato del archivo(s) no es válido, seleccione un formato permitido (.txt|.doc|.docx |.xlsx|.xls|.pdf)"
     alert:
       user:
         create: "Ocurrió un error al crear el usuario."
