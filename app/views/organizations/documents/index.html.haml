@@ -1,6 +1,9 @@
 - breadcrumb :documents
+
 .row
   .col-md-9
+    %div.error_msg
+   
     %h3 Publica tus documentos
     = form_for current_organization, url: update_organization_documents_path, method: :put do |f|
       = f.fields_for :designation_files, current_organization.designation_files.build do |designation_file_form|
@@ -12,7 +15,7 @@
           %label.strong Selecciona el archivo de la Minuta de Autorizaci&oacute;n del Grupo de Trabajo (.txt|.doc|.docx|.xlsx|.xls|.pdf)
           = memo_file_form.file_field :file
       .form-group
-        %button.btn.btn-primary{ type: 'submit' } Subir documentos
+        %button.btn.btn-primary.subm{ type: 'submit' } Subir documentos
   .col-md-3
     %p.margin-top
       Carga el oficio de designación del Enlace y Administrador de Datos Abiertos de tu institución y la minuta del Consejo Institucional de Datos Abiertos.
@@ -78,3 +81,72 @@
       %span.icon.icon-left
         = inline_svg 'next.svg'
     .clearfix
+     
+:javascript
+  $(".subm").attr("disabled", "disabled");
+  function valid(typeFile){
+       
+     archivo = document.getElementById(typeFile).files;
+     var files =archivo;
+     var file = files[0];
+     if (files && file) {
+     var _validFileExtensions = [".txt", ".doc", ".docx", ".xlsx", ".xls", ".pdf"];
+     console.log(file.name);
+     var sFileName = file.name;
+            if (sFileName.length > 0) {
+                var blnValid = false;
+                for (var j = 0; j < _validFileExtensions.length; j++) {
+                    var sCurExtension = _validFileExtensions[j];
+                    if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                        blnValid = true;
+                        break;
+                    }
+                }
+                
+                if (!blnValid) {
+                  return true;
+                }else{
+                  return false;
+                }
+            }
+      }else {
+      return false;
+    }
+  }
+  function msg(){
+    $('.error_msg').text('Seleccione un formato válido: .txt .doc .docx .xlsx .xls .pdf')
+    $(".subm").attr("disabled", "disabled");
+    $( ".error_msg" ).fadeIn(100);
+    setTimeout(function(){ 
+      $(".error_msg").fadeOut();
+    }, 8000);
+  }
+
+  $(function() {
+    $( "#organization_designation_files_attributes_0_file" ).change(function() {
+        var file1  =  valid('organization_designation_files_attributes_0_file');
+        if (file1){
+       msg();
+        }else {
+         var file2  =  valid('organization_memo_files_attributes_0_file');
+         if (file2){
+           msg();
+         }else{
+            $(".subm").removeAttr("disabled");
+         }
+        }
+   });  
+    $( "#organization_memo_files_attributes_0_file" ).change(function() {
+       var file1  =  valid('organization_memo_files_attributes_0_file');
+        if (file1){
+       msg();
+        }else {
+         var file2  =  valid('organization_designation_files_attributes_0_file');
+         if (file2){
+           msg();
+         }else{
+            $(".subm").removeAttr("disabled");
+         }
+        }
+    });
+  });

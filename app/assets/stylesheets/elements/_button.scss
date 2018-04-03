@@ -3,7 +3,7 @@
 	font-size: 14px;
 }
 
-.btn-primary,
+.btn-primary,.btn-primary[disabled],.btn-primary[disabled]:hover,
 .btn-primary:hover,
 .btn-primary:focus {
  	background-color: #00CC99;
