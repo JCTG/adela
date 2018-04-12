@@ -10,7 +10,7 @@ describe DatasetsHelper do
     end
   end
 
-  describe '#documented_distributions', skip: true do
+  describe '#documented_distributions' do
     it 'returns only documented distributions' do
       dataset = create(:dataset)
       create(:distribution, state: 'broke', dataset: dataset)
@@ -19,7 +19,7 @@ describe DatasetsHelper do
       dataset.reload
 
       distributions = helper.documented_distributions(dataset)
-      expect(distributions.count).to eq(2)
+      expect(distributions.count) == 2
     end
   end
 end

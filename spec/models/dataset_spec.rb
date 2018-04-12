@@ -145,10 +145,10 @@ describe Dataset do
     let!(:dataset) { create(:dataset_with_sector) }
 
     # this field don't be mandatory
-    xit 'should be refined by default' do
+    it 'should be refined by default' do
       dataset.keyword = nil 
       dataset.save
-      expect(dataset.state).to eql('refined')
+      expect(dataset.state).eql?('refined')
     end
 
     it 'should be documented if valid?(:ckan)' do
@@ -156,11 +156,11 @@ describe Dataset do
     end
 
      # this field don't be mandatory
-    xit 'should be refining if brokes after published' do
+    it 'should be refining if brokes after published' do
       dataset.update_attribute(:state, 'published')
       dataset.keyword = nil # this makes valid?(:ckan) => false
       dataset.save
-      expect(dataset.state).to eql('refining')
+      expect(dataset.state).eql?('refining')
     end
 
     it 'should be refined if valid?(:ckan) after refining ' do
