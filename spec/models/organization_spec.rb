@@ -12,9 +12,14 @@ describe Organization do
       expect(organization.ranked?).to be_truthy
     end
 
-    it 'should not be valid without ranking flag' do
-      organization.ranked = nil
-      expect(organization).not_to be_valid
+    it 'should be valid without ranking' do
+      organization.ranked = false
+      expect(organization).to be_valid
+    end
+
+    it 'should be valid with ranking' do
+      organization.ranked = true
+      expect(organization).to be_valid
     end
 
     it 'should not be valid without a title' do
@@ -42,9 +47,9 @@ describe Organization do
       expect(new_organization).not_to be_valid
     end
 
-    it 'should not be valid with duplicated landing_page' do
+    it 'should be valid with duplicated landing_page' do
       new_organization = build(:organization, landing_page: organization.landing_page)
-      expect(new_organization).not_to be_valid
+      expect(new_organization).to be_valid
     end
     
   end

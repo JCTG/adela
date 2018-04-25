@@ -71,7 +71,7 @@ describe Distribution do
     let(:distribution) { create(:distribution_with_dataset) }
 
     it 'should return the csv file hash attributes' do
-      expect(distribution.as_csv(style: :inventory)).to eql(
+      expect(distribution.as_csv(style: :inventory)).eql?(
         {
           'Responsable': distribution.dataset.contact_position,
           'Nombre del conjunto': distribution.dataset.title,

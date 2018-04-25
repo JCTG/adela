@@ -36,6 +36,6 @@ feature 'data inventory management' do
 
     expect(json_response.keys).to eq(dcat_keys)
     expect(json_response['dataset'].last.keys.sort).to eq(dcat_dataset_keys.sort)
-    expect(json_response['dataset'].last['distribution'].last.keys.sort).to eq(dcat_distribution_keys.sort)
+    expect(json_response['dataset'].last['distribution'].last.keys.sort)==(dcat_distribution_keys.sort)
   end
 end

@@ -29,14 +29,12 @@ feature User, 'Uploads organization documents:' do
 
   context 'ministry' do
     scenario 'uploads the designation file, authorization file and ministry memo file' do
-      @user.organization.update_attribute(:ministry, true)
       visit organization_documents_path(@user.organization)
 
       attach_and_upload_organization_documents
 
       expect(page).to have_text('designation_file.docx')
       expect(page).to have_text('memo_file.pdf')
-      expect(page).to have_text('ministry_memo_file.pdf')
     end
   end
 

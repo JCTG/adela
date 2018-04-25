@@ -139,31 +139,4 @@ feature Admin, 'manages organizations:' do
     expect(organization.sectors.count).to eq(0)
   end
 
-  scenario 'can create an new ministry' do
-    visit new_admin_organization_path
-    organization_attributes = attributes_for(:organization)
-
-    fill_in('Nombre', with: organization_attributes[:title])
-    fill_in('Descripción', with: organization_attributes[:description])
-    fill_in('Sitio Web', with: organization_attributes[:landing_page])
-    find('select#organization_gov_type').find("option[value='#{organization_attributes[:gov_type]}']").select_option
-    find(:css, '#organization_ministry').set(true)
-    click_on 'Guardar'
-
-    organization = Organization.find_by(title: organization_attributes[:title])
-    expect(organization.ministry?).to be true
-  end
-
-  scenario 'can convert an existing organization as a ministry' do
-    organization = create(:organization)
-    visit edit_admin_organization_path(organization)
-
-    ministry_checkbox = find('#organization_ministry')
-    expect(ministry_checkbox).not_to be_checked
-
-    ministry_checkbox.set(true)
-    click_on 'Guardar'
-
-    expect(organization.reload.ministry?).to be true
-  end
 end
