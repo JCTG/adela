@@ -31,6 +31,11 @@ class DatasetSerializer < ActiveModel::Serializer
       position: object.contact_position,
       mbox: object.mbox
     }
+    data[:responsible] = {
+      position: object.contact_position,
+      mbox: object.mbox,
+      contact_name: object.contact_name
+    }
     data[:public] = object.public_access
     data[:publishDate] = object.publish_date
     data
