@@ -22,3 +22,5 @@ Los administradores de datos abiertos pueden:
 3. Publicar en [datos.gob.mx](http://datos.gob.mx)
 
 ¿Tienes dudas? visita la [Wiki](https://github.com/mxabierto/adela/wiki)
+
+Agregó CI
