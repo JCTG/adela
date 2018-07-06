@@ -23,4 +23,4 @@ Los administradores de datos abiertos pueden:
 
 ¿Tienes dudas? visita la [Wiki](https://github.com/mxabierto/adela/wiki)
 
-Agregó CI
+Agregó CI.
