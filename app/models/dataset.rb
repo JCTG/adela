@@ -17,6 +17,9 @@ class Dataset < ActiveRecord::Base
   validates_uniqueness_of :title
   validates :distributions, presence: true
 
+  before_update :keyword_validation , if: :keyword?
+  validate :validate_keyword_lengh , if: :keyword?
+
   with_options on: :inventory do |dataset|
     dataset.validates :title, :contact_position, :public_access, :publish_date, presence: true
   end
@@ -45,6 +48,30 @@ class Dataset < ActiveRecord::Base
     keywords.compact.join(',')
   end
 
+  def keyword_validation
+      array = keyword.split(',')
+      quote_doble = "\"";
+      quote_simple = "\'";
+      array.select { |item| item.to_s.delete! quote_doble  }
+      array.select { |item| item.to_s.delete! quote_simple }
+      array.select { |item| item.to_s.strip! }
+      array.delete_if {|item| item.length == 0 }
+      array.map!(&:downcase)
+      array.each { |item|      
+      item.gsub!(" ", "-")
+      }
+      self.keyword.clear
+      array.each { |item|      
+      if self.keyword.length == 0 then
+        self.keyword =  item
+      else
+        self.keyword = self.keyword + "," + item
+      end
+      }
+    return self.keyword
+  end
+
+
   def openess_rating
     formats = distributions.map(&:format)
     case
@@ -68,5 +95,12 @@ class Dataset < ActiveRecord::Base
 
     def gov_type
       catalog.organization&.gov_type
+    end
+
+    def validate_keyword_lengh
+     array = self.keyword.split(',') 
+      if array.select { |item| item.length > 25 }.size > 0 then
+         errors.add(:keyword, "la longitud máxima exede a 25 caracteres: #{array.select { |item| item.length > 25 }}")
+       end
     end
 end
