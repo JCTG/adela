@@ -17,9 +17,6 @@ class Dataset < ActiveRecord::Base
   validates_uniqueness_of :title
   validates :distributions, presence: true
 
-  before_update :keyword_validation , if: :keyword?
-  validate :validate_keyword_lengh , if: :keyword?
-
   with_options on: :inventory do |dataset|
     dataset.validates :title, :contact_position, :public_access, :publish_date, presence: true
   end
@@ -29,8 +26,9 @@ class Dataset < ActiveRecord::Base
   end
 
   with_options on: :ckan do |dataset|
-    dataset.validates :title, :description, :accrual_periodicity, :mbox, 
-                      :data_dictionary, presence: true
+    dataset.validates :title, :description, :accrual_periodicity, :mbox,:data_dictionary, presence: true
+    validate :validate_keyword_lengh ,  if: :keyword?
+    before_update :keyword_validation , if: :keyword?
   end
 
   def identifier
@@ -49,26 +47,15 @@ class Dataset < ActiveRecord::Base
   end
 
   def keyword_validation
-      array = keyword.split(',')
-      quote_doble = "\"";
-      quote_simple = "\'";
-      array.select { |item| item.to_s.delete! quote_doble  }
-      array.select { |item| item.to_s.delete! quote_simple }
-      array.select { |item| item.to_s.strip! }
+      array = self.keyword.split(',')
+      array.select { |item| item.delete! "\""  }
+      array.select { |item| item.delete! "\'" }
+      array.select { |item| item.strip! }
       array.delete_if {|item| item.length == 0 }
-      array.map!(&:downcase)
-      array.each { |item|      
-      item.gsub!(" ", "-")
-      }
-      self.keyword.clear
-      array.each { |item|      
-      if self.keyword.length == 0 then
-        self.keyword =  item
-      else
-        self.keyword = self.keyword + "," + item
-      end
-      }
-    return self.keyword
+      array.map { |item| item.gsub!(" ", "-") }
+      array.map! {|cadena| I18n.transliterate(cadena) }
+      array.map(&:downcase!)
+      self.keyword = array.compact.join(', ')
   end
 
 
@@ -91,16 +78,15 @@ class Dataset < ActiveRecord::Base
   private
     def sectors
       catalog.organization.sectors.map(&:slug).join(',')
-    end
+      end
 
     def gov_type
       catalog.organization&.gov_type
     end
 
     def validate_keyword_lengh
-     array = self.keyword.split(',') 
-      if array.select { |item| item.length > 25 }.size > 0 then
-         errors.add(:keyword, "la longitud máxima exede a 25 caracteres: #{array.select { |item| item.length > 25 }}")
-       end
+      array = self.keyword.split(',')    
+      errors.add(:keyword, I18n.t("activerecord.errors.models.dataset.attributes.keyword.invalid") +
+                                  "#{array.select{ |item| item.length > 25}.join(',')}") if array.select { |item| item.length > 25 }.size > 0
     end
 end

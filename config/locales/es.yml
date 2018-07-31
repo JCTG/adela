@@ -96,6 +96,8 @@ es:
               blank: 'Un conjunto de datos debe de contener al menos un Recurso de Datos.'
             temporal:
               invalid: 'La fecha del inicio del período de tiempo cubierto debe ser menor al fin del periodo.'
+            keyword:
+              invalid: 'la longitud supera los 25 caracteres: '
         distribution:
           attributes:
             title:
