@@ -73,13 +73,15 @@ class Dataset < ActiveRecord::Base
 
     def validate_format
      arrayIn = self.keyword.split(',')
+     arrayIn.select { |item| item.strip! }
      arrayIn.delete_if {|item| !(item.match(/\A[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9 _-]*\z/).nil?)}  
      errors.add(:Palabra_clave, I18n.t("activerecord.errors.models.dataset.attributes.keyword.format") +
                                        "#{arrayIn.join(',')}") if arrayIn.length > 0
     end   
 
     def validate_keyword_lengh
-      array = self.keyword.split(',')    
+      array = self.keyword.split(',')
+      array.select { |item| item.strip! }    
       errors.add(:Palabra_clave, I18n.t("activerecord.errors.models.dataset.attributes.keyword.invalid") +
                                   "#{array.select{ |item| item.length > 25}.join(',')}") if array.select { |item| item.length > 25 }.size > 0
     end

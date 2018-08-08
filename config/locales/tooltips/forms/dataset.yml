@@ -17,6 +17,6 @@ es:
         term: Fin del período temporal que abarca el conjunto de datos. Algunos ejemplos son, "2014”, "2014-04", etc.
       data_dictionary: Dirección electrónica del diccionario de datos del Conjunto. Por ejemplo, "http://bit.ly/1t5IFsb".
       sector: Sector al que pertenece el Conjunto de Datos según el tema que trata.
-      keyword: Listado de términos clave separados por coma, los cuales tienen como finalidad facilitar al usuario la búsqueda de información IMPORTANTE; se debe considerar el uso de términos no técnicos y únicamente con caracteres alfanuméricos. Por ejemplo, contratos, medicinas, compras, agricultura.
+      keyword: Listado de términos clave separados por coma, los cuales tienen como finalidad facilitar al usuario la búsqueda de información. IMPORTANTE se debe considerar el uso de términos no-técnicos y únicamente con caracteres alfanuméricos, con no más de 25 caracteres. EJEMPLOS contratos, compra-de-medicinas, agricultura
       comments: Comentarios adicionales sobre el conjunto. Por ejemplo, "La continuidad a los datos estará a cargo de [Nombre Dependencia] a partir del [Fecha]".
       quality: Dirección electrónica donde se puede consultar el proceso que se sigue para asegurar la calidad de los datos. Por ejemplo, "http://bit.ly/1a2b3c4".
