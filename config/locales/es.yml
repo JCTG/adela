@@ -97,7 +97,8 @@ es:
             temporal:
               invalid: 'La fecha del inicio del período de tiempo cubierto debe ser menor al fin del periodo.'
             keyword:
-              invalid: 'la longitud supera los 25 caracteres: '
+              invalid: 'supera los 25 caracteres permitidos: '
+              format:  'puede estar formada por caracteres alfanumericos, guion medio (-) y bajo (_) ;corrija las siguientes: '
         distribution:
           attributes:
             title:

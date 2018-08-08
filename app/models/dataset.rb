@@ -27,8 +27,8 @@ class Dataset < ActiveRecord::Base
 
   with_options on: :ckan do |dataset|
     dataset.validates :title, :description, :accrual_periodicity, :mbox,:data_dictionary, presence: true
-    validate :validate_keyword_lengh ,  if: :keyword?
-    before_update :keyword_validation , if: :keyword?
+    validate :validate_format , :validate_keyword_lengh ,  if: :keyword?
+    before_update :keyword_validation ,  if: :keyword?
   end
 
   def identifier
@@ -45,19 +45,6 @@ class Dataset < ActiveRecord::Base
     keywords.push(*sectors.split(','))
     keywords.compact.join(',')
   end
-
-  def keyword_validation
-      array = self.keyword.split(',')
-      array.select { |item| item.delete! "\""  }
-      array.select { |item| item.delete! "\'" }
-      array.select { |item| item.strip! }
-      array.delete_if {|item| item.length == 0 }
-      array.map { |item| item.gsub!(" ", "-") }
-      array.map! {|cadena| I18n.transliterate(cadena) }
-      array.map(&:downcase!)
-      self.keyword = array.compact.join(', ')
-  end
-
 
   def openess_rating
     formats = distributions.map(&:format)
@@ -84,9 +71,29 @@ class Dataset < ActiveRecord::Base
       catalog.organization&.gov_type
     end
 
+    def validate_format
+     arrayIn = self.keyword.split(',')
+     arrayIn.delete_if {|item| !(item.match(/\A[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9 _-]*\z/).nil?)}  
+     errors.add(:Palabra_clave, I18n.t("activerecord.errors.models.dataset.attributes.keyword.format") +
+                                       "#{arrayIn.join(',')}") if arrayIn.length > 0
+    end   
+
     def validate_keyword_lengh
       array = self.keyword.split(',')    
-      errors.add(:keyword, I18n.t("activerecord.errors.models.dataset.attributes.keyword.invalid") +
+      errors.add(:Palabra_clave, I18n.t("activerecord.errors.models.dataset.attributes.keyword.invalid") +
                                   "#{array.select{ |item| item.length > 25}.join(',')}") if array.select { |item| item.length > 25 }.size > 0
     end
+
+    def keyword_validation
+      array = self.keyword.split(',')
+      array.select { |item| item.delete! "\""  }
+      array.select { |item| item.delete! "\'" }
+      array.select { |item| item.strip! }
+      array.delete_if {|item| item.length == 0 }
+      array.map { |item| item.gsub!(" ", "-") }
+      array.map! {|cadena| I18n.transliterate(cadena) }
+      array.map(&:downcase!)
+      self.keyword = array.compact.join(', ')
+    end
+ 
 end
