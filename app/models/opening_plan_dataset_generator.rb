@@ -57,7 +57,7 @@ class OpeningPlanDatasetGenerator
       dataset.temporal = Time.current.year
       dataset.data_dictionary = @inventory.organization.landing_page
       dataset.accrual_periodicity = 'irregular'
-      dataset.publish_date = DateTime.new(2015, 8, 28)
+      dataset.publish_date = DateTime.now.beginning_of_day
       dataset.editable = false
     end
   end
@@ -83,7 +83,7 @@ class OpeningPlanDatasetGenerator
       distribution.download_url = organization_inventory_url(@inventory.organization, format: :csv).to_s
       distribution.media_type = 'csv'
       distribution.format = 'csv'
-      distribution.publish_date = DateTime.new(2015, 8, 28)
+      distribution.publish_date = DateTime.now.beginning_of_day
       distribution.temporal = build_temporal(dataset.modified)
       distribution.modified = dataset.modified
     end
