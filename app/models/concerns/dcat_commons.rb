@@ -14,7 +14,7 @@ module DCATCommons
   def validate_temporal_range
     return if temporal_init_date < temporal_term_date
 
-    errors.add(:temporal, temporal_invalid_error_message)
+    errors.add(:La_fecha, temporal_invalid_error_message)
   end
 
   def temporal_present?
