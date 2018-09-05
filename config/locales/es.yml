@@ -95,7 +95,7 @@ es:
             distributions:
               blank: 'Un conjunto de datos debe de contener al menos un Recurso de Datos.'
             temporal:
-              invalid: 'La fecha del inicio del período de tiempo cubierto debe ser menor al fin del periodo.'
+              invalid: 'del inicio del período de tiempo cubierto debe ser menor al fin del periodo.'
             keyword:
               invalid: 'supera los 25 caracteres permitidos: '
               format:  'puede estar formada por caracteres alfanumericos, guion medio (-) y bajo (_) ;corrija las siguientes: '
@@ -106,7 +106,7 @@ es:
             download_url:
               taken: '- Existe otro recurso con la misma URL de descarga.'
             temporal:
-              invalid: 'La fecha del inicio del período de tiempo cubierto debe ser menor al fin del periodo.'
+              invalid: 'del inicio del período de tiempo cubierto debe ser menor al fin del periodo.'
         organization:
           attributes:
             title:
