@@ -1,5 +1,5 @@
 .navbar-default {
-  background-color: $gray_300;
+  background-color: #f6f6f6;
   border: none;
 
   .navbar-brand {
@@ -10,12 +10,13 @@
   }
 
   .navbar-nav > li > a {
-    color: $white;
+    color: #2c2c2b;
     font-size: 12px;
 
     &:hover,
     &:focus {
-      color: $navbar-color-hover;
+      background-color: #eaeaea;
+      color: #2c2c2b;
     }
   }
 }
